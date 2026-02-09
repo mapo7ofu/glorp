@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>supercool website</title>
+	</head>
+	<body>
+		<h1>glorp</h1>
+
+		<table border = '1', bordercolor = '#000000', bgcolor = '#D3D3D3', cellspacing = '2', cellpadding = '3', align = 'left'>
+			<tr bgcolor = '#000000'>
+				{% for fieldname in fieldnames %}
+					{% if fieldname in shown_types %}
+						<td style = 'color: #FFFFFF'>{{ fieldname }}</td>
+					{% endif %}
+				{% endfor %}
+			</tr>
+			{% for dictionary in data %}
+				<tr bgcolor = '#a9a9a9'>
+					{% for key in dictionary %}
+						{% if key in shown_types %}
+							<td><a href = 'url'>{{ dictionary[key] }}</a></td>
+						{% endif %}
+					{% endfor %}
+				</tr>
+			{% endfor %}
+		</table>
+	</body>
+</html>
+
