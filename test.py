@@ -5,6 +5,7 @@ import csv
 
 app = Flask(__name__)
 data = []
+codedict = {}
 shown_types = ['naam', 'code']
 
 with open('art.csv', 'r') as csv_file:
@@ -24,6 +25,7 @@ with open('art_new.csv', 'r') as csv_file:
 
 	for dictionary in csv_reader:
 		data.append(dictionary)
+		codedict[dictionary['code']] = dictionary
 
 @app.route('/')
 
@@ -32,7 +34,8 @@ def index():
 
 @app.route('/clicked/<code>')
 
+
 def itemclicked(code):
-	return render_template('iteminfo.html', code=code)
+	return render_template('iteminfo.html', dictionary=codedict[code])
 
 app.run(host="0.0.0.0", port=5000)
