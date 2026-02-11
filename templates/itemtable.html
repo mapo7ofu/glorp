@@ -1,16 +1,16 @@
 <table class = 'striped'>
-	<thead data-theme = 'light'>
+	<thead>
 		<tr>
 			{% for fieldname in fieldnames %}
 				{% if fieldname in shown_types %}
-					<th>{{ fieldname }}</th>
+					<td>{{ fieldname }}</td>
 				{% endif %}
 			{% endfor %}
-			<th></th>
+			<td></td>
 		</tr>
 	</thead>
 	{% for dictionary in showndicts %}
-		<tr>
+		<tr height = '64px'>
 			{% for key in dictionary %}
 				{% if key in shown_types %}
 					<td>{{ dictionary[key] }}</td>
@@ -21,4 +21,23 @@
 			</td>
 		</tr>
 	{% endfor %}
+	<tfoot>
+		<tr>
+			<td>
+				{% if page != 0 %}
+					<button hx-get='/page/{{ page - 1 }}?search={{ search }}' hx-target = '#itemtable'></button>
+				{% else %}
+					<button disabled></button>
+				{% endif %}
+			</td>
+			<td></td>
+			<td>
+				{% if not lastpage %}
+					<button hx-get='/page/{{ page + 1 }}?search={{ search }}' hx-target = '#itemtable'></button>
+				{% else %}
+					<button disabled></button>
+				{% endif %}
+			</td>
+		</tr>
+	</tfoot>
 </table>

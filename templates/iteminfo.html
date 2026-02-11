@@ -1,8 +1,10 @@
 <table class = 'striped'>
+	<thead height = '56px'><tr><td></td><td></td></tr></thead>
 	{% for key in dictionary.keys() %}
-		<tr>
-			<td width = '15%'>{{ key }}</td>
+		<tr height = '64px'>
+			<td width = '15%'><b>{{ key }}</b></td>
 			<td>{{ dictionary[key] }}</td>
 		</tr>
 	{% endfor %}
+	<tfoot><tr><td></td><td></td></tr></tfoot>
 </table>
