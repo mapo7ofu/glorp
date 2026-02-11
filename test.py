@@ -1,5 +1,3 @@
-
-
 from flask import Flask, render_template
 import csv
 
@@ -28,14 +26,11 @@ with open('art_new.csv', 'r') as csv_file:
 		codedict[dictionary['code']] = dictionary
 
 @app.route('/')
-
 def index():
 	return render_template('index.html', data=data, fieldnames=fieldnames, shown_types=shown_types)
 
-@app.route('/clicked/<code>')
-
-
-def itemclicked(code):
-	return render_template('iteminfo.html', dictionary=codedict[code])
+@app.route('/item/<code>')
+def showextrainfo(code):
+    return render_template('iteminfo.html', dictionary=codedict[code], code=code)
 
 app.run(host="0.0.0.0", port=5000)

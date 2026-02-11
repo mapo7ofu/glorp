@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>supercoolsubpage</title>
-	</head>
-	<body>
-		<table border = '1', bordercolor = '#000000', bgcolor = '#D3D3D3', cellspacing = '2', cellpadding = '3', align = 'left'>
-			{% for key in dictionary.keys() %}
-				<tr>
-					<td bgcolor = '#000000', style = 'color: #FFFFFF'>{{ key }}</td>
-					<td>{{ dictionary[key] }}</td>
-				</tr>
-			{% endfor %}
-		</table>
-	</body>
-</html>
+<table>
+	{% for key in dictionary.keys() %}
+		<tr>
+			<td width = '15%'>{{ key }}</td>
+			<td>{{ dictionary[key] }}</td>
+		</tr>
+	{% endfor %}
+</table>

@@ -1,32 +1,41 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>supercool website</title>
+		<title>supercool website</title>	
+		<link rel = 'stylesheet' href = '/static/css/pico.min.css'>
+		<script src = "/static/js/htmx.min.js"></script>
 	</head>
 	<body>
-		<table border = '1', bordercolor = '#000000', bgcolor = '#D3D3D3', cellspacing = '2', cellpadding = '3', align = 'left'>
-			<tr bgcolor = '#000000'>
-				{% for fieldname in fieldnames %}
-					{% if fieldname in shown_types %}
-						<td style = 'color: #FFFFFF'>{{ fieldname }}</td>
-					{% endif %}
+		<div style = 'float: left; width: 100%; height: 64px; background-color: #000000;'>
+			<h1>menu</h1>
+		</div>
+		<div style = 'float: left; width: 50%;'>
+			<table class = 'striped'>
+				<thead data-theme = 'light'>
+					<tr>
+						{% for fieldname in fieldnames %}
+							{% if fieldname in shown_types %}
+								<th>{{ fieldname }}</th>
+							{% endif %}
+						{% endfor %}
+						<th></th>
+					</tr>
+				</thead>
+				{% for dictionary in data %}
+					<tr>
+						{% for key in dictionary %}
+							{% if key in shown_types %}
+								<td>{{ dictionary[key] }}</td>
+							{% endif %}
+						{% endfor %}
+						<td>
+							<button hx-get='/item/{{ dictionary["code"] }}' hx-target='#iteminfo'></button>
+						</td>
+					</tr>
 				{% endfor %}
-			</tr>
-			{% for dictionary in data %}
-				<tr bgcolor = '#a9a9a9'>
-					{% for key in dictionary %}
-						{% if key in shown_types %}
-							<td>{{ dictionary[key] }}</td>
-						{% endif %}
-					{% endfor %}
-					<td>
-						<a href = '/clicked/{{ dictionary["code"] }}'>
-							<button style = 'width: 25px; height: 25px;'></button>
-						</a>
-					</td>
-				</tr>
-			{% endfor %}
-		</table>
+			</table>
+		</div>
+		<div style = 'float: left; width: 50%;' id='iteminfo'></div>
 	</body>
 </html>
 
