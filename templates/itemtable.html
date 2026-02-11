@@ -1,0 +1,24 @@
+<table class = 'striped'>
+	<thead data-theme = 'light'>
+		<tr>
+			{% for fieldname in fieldnames %}
+				{% if fieldname in shown_types %}
+					<th>{{ fieldname }}</th>
+				{% endif %}
+			{% endfor %}
+			<th></th>
+		</tr>
+	</thead>
+	{% for dictionary in showndicts %}
+		<tr>
+			{% for key in dictionary %}
+				{% if key in shown_types %}
+					<td>{{ dictionary[key] }}</td>
+				{% endif %}
+			{% endfor %}
+			<td>
+				<button hx-get='/item/{{ dictionary["code"] }}' hx-target = '#iteminfo'></button>
+			</td>
+		</tr>
+	{% endfor %}
+</table>

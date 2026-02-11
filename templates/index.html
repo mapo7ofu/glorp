@@ -6,36 +6,17 @@
 		<script src = "/static/js/htmx.min.js"></script>
 	</head>
 	<body>
-		<div style = 'float: left; width: 100%; height: 64px; background-color: #000000;'>
-			<h1>menu</h1>
-		</div>
-		<div style = 'float: left; width: 50%;'>
-			<table class = 'striped'>
-				<thead data-theme = 'light'>
-					<tr>
-						{% for fieldname in fieldnames %}
-							{% if fieldname in shown_types %}
-								<th>{{ fieldname }}</th>
-							{% endif %}
-						{% endfor %}
-						<th></th>
-					</tr>
-				</thead>
-				{% for dictionary in data %}
-					<tr>
-						{% for key in dictionary %}
-							{% if key in shown_types %}
-								<td>{{ dictionary[key] }}</td>
-							{% endif %}
-						{% endfor %}
-						<td>
-							<button hx-get='/item/{{ dictionary["code"] }}' hx-target='#iteminfo'></button>
-						</td>
-					</tr>
-				{% endfor %}
-			</table>
-		</div>
-		<div style = 'float: left; width: 50%;' id='iteminfo'></div>
+		<div style = 'float: left; height: 64px;'>menu</div>
+		<input
+			type = 'search'
+			name = 'search'
+			placeholder = 'type to search'
+			style = 'float: left; width: 100%; height: 64px;'
+			hx-get = '/search/naam'
+			hx-trigger = 'input changed delay: 500ms'
+			hx-target = '#itemtable'/>
+		<div style = 'float: left; width: 50%' id = 'itemtable'></div>
+		<div style = 'float: left; width: 50%;' id ='iteminfo'></div>
 	</body>
 </html>
 

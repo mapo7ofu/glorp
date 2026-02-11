@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import csv
 
 app = Flask(__name__)
@@ -27,7 +27,17 @@ with open('art_new.csv', 'r') as csv_file:
 
 @app.route('/')
 def index():
-	return render_template('index.html', data=data, fieldnames=fieldnames, shown_types=shown_types)
+	return render_template('index.html')
+
+@app.route('/search/<topic>')
+def loadtable(topic):
+	search = request.args['search']
+	showndicts = []
+	for dictionary in data:
+		if search.lower() in dictionary[topic].lower():
+			showndicts.append(dictionary)
+	return render_template('itemtable.html', showndicts=showndicts, fieldnames=fieldnames, shown_types=shown_types)
+
 
 @app.route('/item/<code>')
 def showextrainfo(code):
