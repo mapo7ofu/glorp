@@ -5,18 +5,11 @@
 		<link rel = 'stylesheet' href = '/static/css/pico.min.css'>
 		<script src = "/static/js/htmx.min.js"></script>
 	</head>
-	<body>
-		<div style = 'float: left; height: 64px;'>menu</div>
-		<input
-			type = 'search'
-			name = 'search'
-			placeholder = 'type to search'
-			style = 'float: left; width: 100%; height: 64px;'
-			hx-get = '/search/naam'
-			hx-trigger = 'keyup changed delay:250ms, load'
-			hx-target = '#itemtable'/>
+	<body hx-get = '/configuration' hx-trigger = 'load' hx-target = '#configuration'>
+		<div style = 'float: left; height: 64px; width: 100%;'>menu</div>
+		<div style = 'float: left; height: 72px; width: 100%;' id = 'configuration'></div>
 		<div style = 'float: left; width: 50%' id = 'itemtable'></div>
-		<div style = 'float: left; width: 50%;' id ='iteminfo'></div>
+		<div style = 'float: left; width: 50%;' id = 'iteminfo'></div>
 	</body>
 </html>
 

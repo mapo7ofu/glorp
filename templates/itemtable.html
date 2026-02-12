@@ -25,7 +25,7 @@
 		<tr>
 			<td>
 				{% if page != 0 %}
-					<button hx-get='/page/{{ page - 1 }}?search={{ search }}' hx-target = '#itemtable'></button>
+					<button hx-get='/page/{{ page - 1 }}/{{ category }}?search={{ search }}' hx-target = '#itemtable'></button>
 				{% else %}
 					<button disabled></button>
 				{% endif %}
@@ -33,7 +33,7 @@
 			<td></td>
 			<td>
 				{% if not lastpage %}
-					<button hx-get='/page/{{ page + 1 }}?search={{ search }}' hx-target = '#itemtable'></button>
+					<button hx-get='/page/{{ page + 1 }}/{{ category }}?search={{ search }}' hx-target = '#itemtable'></button>
 				{% else %}
 					<button disabled></button>
 				{% endif %}

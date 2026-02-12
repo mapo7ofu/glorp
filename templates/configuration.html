@@ -1,0 +1,19 @@
+
+<select style = 'float: left; width: 16%' name = 'category' hx-target = '#configuration'>
+	{% for fieldname in fieldnames %}
+		{% if not fieldname == category %}
+			<option hx-get = '/category/{{ fieldname }}'>{{ fieldname }}</option>
+		{% else %}
+			<option hx-get = '/category/{{ fieldname }}' selected>{{ fieldname }}</option>
+		{% endif %}
+	{% endfor %}
+</select>
+<input
+	type = 'search'
+	name = 'search'
+	placeholder = 'type to search'
+	style = 'float: left; width: 84%;'
+	hx-get = '/search/{{ category }}'
+	hx-trigger = 'keyup changed delay:250ms, load'
+	hx-target = '#itemtable'/>
+
