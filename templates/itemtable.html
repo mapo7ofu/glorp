@@ -2,7 +2,7 @@
 	<thead>
 		<tr>
 			{% for fieldname in fieldnames %}
-				{% if fieldname in shown_types %}
+				{% if fieldname in showntypes %}
 					<td>{{ fieldname }}</td>
 				{% endif %}
 			{% endfor %}
@@ -12,25 +12,30 @@
 	{% for dictionary in showndicts %}
 		<tr height = '64px'>
 			{% for key in dictionary %}
-				{% if key in shown_types %}
+				{% if key in showntypes %}
 					<td>{{ dictionary[key] }}</td>
 				{% endif %}
 			{% endfor %}
 			<td>
-				<button hx-get='/item/{{ dictionary["code"] }}' hx-target = '#iteminfo'></button>
+				<button hx-get='/item/{{ dictionary[fieldnames[0]] }}' hx-target = '#iteminfo'></button>
 			</td>
 		</tr>
 	{% endfor %}
+	{% if showndicts|length < 10 %}
+		{% for i in range(10 - (showndicts|length)) %}
+			<tr height = '64px'><td></td><td></td><td></td></tr>
+		{% endfor %}
+	{% endif %}
 	<tfoot>
 		<tr>
 			<td>
-				{% if page != 0 %}
+				{% if page > 0 %}
 					<button hx-get='/page/{{ page - 1 }}/{{ category }}?search={{ search }}' hx-target = '#itemtable'></button>
 				{% else %}
 					<button disabled></button>
 				{% endif %}
 			</td>
-			<td></td>
+			<td>{{ page + 1 }}/{{ totalpages }}</td>
 			<td>
 				{% if not lastpage %}
 					<button hx-get='/page/{{ page + 1 }}/{{ category }}?search={{ search }}' hx-target = '#itemtable'></button>

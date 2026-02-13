@@ -6,5 +6,6 @@
 			<td>{{ dictionary[key] }}</td>
 		</tr>
 	{% endfor %}
-	<tfoot><tr><td></td><td></td></tr></tfoot>
+	<tfoot><tr><td><button hx-get = '/removeinfo' hx-target = '#iteminfo'></button></td><td></td></tr></tfoot>
+	
 </table>

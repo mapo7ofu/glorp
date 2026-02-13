@@ -1,19 +1,40 @@
+<select
+	{% if waitingforfile %}disabled{% endif %}
+	style = 'float: left; width: 16%;'
+	name = 'category'
+	hx-get = '/category'
+	hx-trigger = 'change'
+	hx-target = '#configuration'>
 
-<select style = 'float: left; width: 16%' name = 'category' hx-target = '#configuration'>
 	{% for fieldname in fieldnames %}
-		{% if not fieldname == category %}
-			<option hx-get = '/category/{{ fieldname }}'>{{ fieldname }}</option>
-		{% else %}
-			<option hx-get = '/category/{{ fieldname }}' selected>{{ fieldname }}</option>
-		{% endif %}
+			<option value = {{ fieldname }} {% if fieldname == category %}selected{% endif %}>{{ fieldname }}</option>
 	{% endfor %}
 </select>
+
+<p style = 'float: left; width: 1.2%'></p>
+	
 <input
+	type = 'file'
+	name = 'file'
+	id = 'csv_file'
+	accept = '.csv'
+	placeholder = 'Insert csv file'
+	style = 'float: left; width: 7.5%'
+	hx-post = '/file'
+	hx-target = '#configuration'
+	hx-encoding = 'multipart/form-data'
+	hx-trigger = 'change'/>
+
+<input
+	{% if waitingforfile %}
+		disabled
+	{% endif %}
 	type = 'search'
 	name = 'search'
-	placeholder = 'type to search'
-	style = 'float: left; width: 84%;'
+	placeholder = 'Type to search'
+	style = 'float: left; width: 100%;'
 	hx-get = '/search/{{ category }}'
-	hx-trigger = 'keyup changed delay:250ms, load'
+	{% if not waitingforfile %}
+		hx-trigger = 'keyup changed delay:250ms, load'
+	{% endif %}
 	hx-target = '#itemtable'/>
-
