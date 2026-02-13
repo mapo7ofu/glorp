@@ -10,10 +10,33 @@
 		</tr>
 	</thead>
 	{% for dictionary in showndicts %}
+		{% set row = loop.index0 %}
+		
 		<tr height = '64px'>
 			{% for key in dictionary %}
 				{% if key in showntypes %}
-					<td>{{ dictionary[key] }}</td>
+					{% if key == category and highlights != [] %}
+						<td>
+							{% set ns = namespace(text = [dictionary[key][:highlights[row][0]]|string]) %}
+							{% for highlight in highlights[row] %}
+								{% set index = loop.index0 %}
+								{% set ns.text = ns.text + [search] %}
+								{% if dictionary[key][highlight + search|length] %}
+									{% if highlights[row][index + 1] %}
+										{% set ns.text = ns.text + [dictionary[key][highlight + search|length:highlights[row][index + 1]]|string] %}
+									{% else %}
+										{% set ns.text = ns.text + [dictionary[key][highlight + search|length:]|string] %}
+									{% endif %}
+								{% endif %}
+							{% endfor %}
+							{%- for string in ns.text -%}
+								{%- set i = loop.index0 -%}
+								<span {% if i % 2 == 1 %}style = 'background-color: #0172AD;'{% endif %}>{{ string|upper }}</span>
+							{%- endfor -%}
+						</td>
+					{% else %}
+						<td>{{ dictionary[key] }}</td>
+					{% endif %}
 				{% endif %}
 			{% endfor %}
 			<td>

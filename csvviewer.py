@@ -63,7 +63,23 @@ def loadtable(category):
 		page = -1
 	else:
 		page = 0
-	return render_template('itemtable.html', codedict=codedict, search=search, showndicts=showndicts, fieldnames=fieldnames, showntypes=showntypes, page=page, totalpages=totalpages, category=category, lastpage=lastpage)
+
+	highlights = []
+	highlight = []
+	if search != '':
+		for dictionary in showndicts:
+			highlight = []
+
+			start = 0
+			index = dictionary[category].lower().find(search.lower())
+			while index >= 0:
+				highlight.append(index)
+				start =  index + len(search)
+				index = dictionary[category].lower().find(search.lower(), start)
+
+			highlights.append(highlight)
+
+	return render_template('itemtable.html', highlights=highlights, search=search, showndicts=showndicts, fieldnames=fieldnames, showntypes=showntypes, page=page, totalpages=totalpages, category=category, lastpage=lastpage)
 
 @app.route('/removeinfo')
 def removeinfo():
@@ -94,6 +110,23 @@ def changepage(page, category):
 	else:
 		lastpage = False
 	showndicts = showndicts[page * 10: page * 10 + 10]
-	return render_template('itemtable.html', search=search, showndicts=showndicts, fieldnames=fieldnames, showntypes=showntypes, page=page, totalpages=totalpages, category=category, lastpage=lastpage)
+
+	highlight = []
+	highlights = []
+	if search != '':
+                for dictionary in showndicts:
+                        highlight = []
+
+                        start = 0
+                        index = dictionary[category].lower().find(search.lower())
+                        while index >= 0:
+                                highlight.append(index)
+                                start =  index + len(search)
+                                index = dictionary[category].lower().find(search.lower(), start)
+
+                        highlights.append(highlight)
+
+
+	return render_template('itemtable.html', highlights=highlights, search=search, showndicts=showndicts, fieldnames=fieldnames, showntypes=showntypes, page=page, totalpages=totalpages, category=category, lastpage=lastpage)
 
 app.run(host="0.0.0.0", port=5000)
